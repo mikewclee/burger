@@ -22,6 +22,13 @@ var orm = {
             if (err) throw err;
             cb(result);
         });
+    },
+    deleteOne: (table, condition, cb) => {
+        let queryString = `DELETE FROM ${table} WHERE ${condition};`;
+        connection.query(queryString, (err, result) => {
+            if (err) throw err;
+            cb(result);
+        });
     }
 }
 

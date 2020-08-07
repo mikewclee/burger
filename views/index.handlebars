@@ -1,41 +1,50 @@
-<h1>Eat-Da-Burger!</h1>
-<div class="row d-flex">
-    <div class="col">
-        <h2>Burgers Ready To Eat!</h2>
+<div class="container">
+    <h1>Eat-Da-Burger!</h1>
 
-        <ul>
-            {{#each burger}}
-            {{#unless devoured}}
-            <li>
-                {{burger_name}}
-                <button class="eatBtn btn btn-danger" id="{{id}}">Devour It!</button>
-            </li>
-            {{/unless}}
-            {{/each}}
-        </ul>
+    <div>
+        <h2>Add Your New Burger</h2>
+        <form class="create-form mx-auto">
+
+            <div class="form-group">
+                <input type="text" class="form-control mx-auto" id="burg" name="name"
+                    placeholder="Enter New Burger Name">
+                <button type="submit" class="btn btn-primary btn-lg mx-auto d-block">Add Burger</button>
+            </div>
+
+ 
+                
+    
+        </form>
     </div>
-    <div class="col">
-        <h2>Burgers Devoured!</h2>
 
-        <ul>
-            {{#each burger}}
-            {{#if devoured}}
-            <li>
-                {{burger_name}}
-            </li>
-            {{/if}}
-            {{/each}}
-        </ul>
-    </div>
-</div>
-<div>
-    <h2>Add Your Burger</h2>
-    <form class="create-form">
+    <div class="row d-flex">
+        <div class="col">
+            <h2>Burgers Ready To Eat!</h2>
 
-        <div class="form-group">
-            <input type="text" class="form-control" id="burg" name="name" placeholder="Burger Name">
+            <ul>
+                {{#each burger}}
+                {{#unless devoured}}
+                <li>
+                    {{burger_name}}
+                    <button class="eatBtn btn btn-devour" id="{{id}}">Devour It!</button>
+                </li>
+                {{/unless}}
+                {{/each}}
+            </ul>
         </div>
+        <div class="col">
+            <h2>Burgers Devoured!</h2>
 
-        <button type="submit" class="btn btn-primary">Add Burger</button>
-    </form>
+            <ul>
+                {{#each burger}}
+                {{#if devoured}}
+                <li>
+                    {{burger_name}}
+                    <button class="deleteBtn btn btn-danger" id="{{id}}">Delete It!</button>
+                </li>
+                {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
 </div>

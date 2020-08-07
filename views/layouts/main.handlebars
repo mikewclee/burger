@@ -3,9 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/public/assets/css/burger_style.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Eat-Da-Burger!</title>
     <script src="https://code.jquery.com/jquery.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/burger_style.css" type="text/css" />
     {{!-- <script src="/assets/js/cats.js"></script> --}}
 </head>
 
@@ -14,37 +18,52 @@
 
     <script>
         $(function () {
-            $(".create-form").on("submit", (event) => {
+            $(".create-form").on("submit", function (event) {
                 event.preventDefault();
 
                 let newBurger = {
                     name: $("#burg").val().trim(),
                 };
 
+                if (newBurger.name === ""){
+                    console.log("Cannot be blank. Please input name.");
+                }else{
                 //Send POST request.
                 $.ajax("/api/burgers", {
                     type: "POST",
                     data: newBurger
-                }).then(() => console.log("Created new Burger");
-                location.reload(););
+                }).then(() => {
+                    console.log("Created new Burger");
+                    location.reload();
+                });
+                }
+
+            })
+            $(".eatBtn").on("click", function (event) {
+                //console.log(this.id);
+                let devouredState = {
+                    devoured: "true"
+                };
+
+                $.ajax(`/api/burgers/${this.id}`, {
+                    type: "PUT",
+                    data: devouredState
+                }).then(() => {
+                    console.log("Burger Devoured!");
+                    location.reload();
+                })
+            })
+            $(".deleteBtn").on("click", function (event) {
+                //console.log(this.id);
+
+                $.ajax(`/api/burgers/${this.id}`, {
+                    type: "DELETE",
+                }).then(() => {
+                    console.log("Burger Deleted!");
+                    location.reload();
+                })
+            })
         });
-        $(".eatBtn").on("click", (event) => {
-            console.log("eatBtn  clicked" + this.id);
-            let devouredState = {
-                devoured: "true"
-            };
-
-            $.ajax(`api/burgers/${this.id}`, {
-                type: "PUT",
-                data: devouredState
-            }).then(() => {
-                console.log(`Changed devoured to ${devouredState}`);
-                location.reload();
-            });
-        })
-
-
-});
 
     </script>
 </body>
